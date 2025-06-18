@@ -3,7 +3,7 @@
   "short_name": "Flessioni",
   "start_url": "/Counterdef/index.html",
   "scope": "/Counterdef/",
-  "display": "fullscreen-sticky",
+  "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "orientation": "portrait",
