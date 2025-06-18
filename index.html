@@ -69,7 +69,7 @@
     async function richiediFullscreen() {
       const el = document.documentElement;
       try {
-        if (!document.fullscreenElement) {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
           if (el.requestFullscreen) {
             await el.requestFullscreen();
           } else if (el.webkitRequestFullscreen) {
@@ -110,7 +110,6 @@
 
     startCamera();
 
-    // SOLO touchstart per evitare doppio conteggio
     window.addEventListener('touchstart', handleTouch, { passive: true });
   </script>
 </body>
