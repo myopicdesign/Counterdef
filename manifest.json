@@ -1,7 +1,8 @@
 {
   "name": "Conta Flessioni",
   "short_name": "Flessioni",
-  "start_url": "./index.html",
+  "start_url": "/Counterdef/index.html",
+  "scope": "/Counterdef/",
   "display": "fullscreen-sticky",
   "background_color": "#000000",
   "theme_color": "#000000",
