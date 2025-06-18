@@ -2,7 +2,7 @@
   "name": "Conta Flessioni",
   "short_name": "Flessioni",
   "start_url": "./index.html",
-"display": "fullscreen-sticky"
+  "display": "fullscreen-sticky",
   "background_color": "#000000",
   "theme_color": "#000000",
   "orientation": "portrait",
