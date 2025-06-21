@@ -70,7 +70,7 @@
       font-size: 6rem;
       font-family: monospace;
       color: white;
-      z-index: 11;
+      z-index: 10;
       user-select: none;
       text-align: center;
     }
@@ -79,10 +79,10 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 200px;
-      height: 200px;
       transform: translate(-50%, -50%);
-      z-index: 10;
+      width: 150px;
+      height: 150px;
+      z-index: 9;
       pointer-events: none;
       opacity: 0.4;
     }
@@ -93,7 +93,7 @@
 
     @keyframes echo {
       0% {
-        opacity: 0.4;
+        opacity: 0.5;
         transform: translate(-50%, -50%) scale(1);
       }
       100% {
@@ -110,15 +110,12 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      backdrop-filter: blur(10px);
       background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 1.8rem;
-      z-index: 15;
     }
   </style>
 </head>
@@ -131,11 +128,8 @@
   </div>
   <div class="title-wrapper">FlexNose</div>
 
-  <!-- SVG NASO da URL integrato -->
-  <svg class="nose-icon" viewBox="0 0 150 150" fill="none" stroke="white" stroke-width="6">
-    <path d="M75 20 C75 80, 105 80, 105 20" stroke-linecap="round"/>
-    <path d="M70 100 Q75 115, 80 100" stroke-linecap="round"/>
-  </svg>
+  <!-- SVG esterno corretto -->
+  <img src="https://myopicdesign.github.io/Counterdef/naso.svg" alt="naso" class="nose-icon" />
 
   <div id="counter">0</div>
 
@@ -213,7 +207,6 @@
     }
 
     startCamera();
-
     window.addEventListener('touchstart', handleTouch, { passive: true });
   </script>
 </body>
