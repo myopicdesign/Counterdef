@@ -145,7 +145,7 @@
 <body>
   <!-- Splash Screen -->
   <div id="splash-screen">
-    <img src="https://myopicdesign.github.io/Counterdef/src/logo_flex.png" alt="Logo">
+    <img src="https://myopicdesign.github.io/Counterdef/src/logo_flex_alta.png" alt="Logo">
   </div>
 
   <video id="video" autoplay playsinline muted></video>
@@ -169,7 +169,6 @@
     const noseIcon = document.querySelector('.nose-icon');
     let audioMotivazionale = null;
 
-    // Lista audio motivazionali
     const motivationalAudios = [
       "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3",
       "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3",
@@ -254,7 +253,7 @@
       setTimeout(() => {
         const splash = document.getElementById("splash-screen");
         if (splash) splash.remove();
-      }, 2000);
+      }, 4000); // 4 secondi
     });
 
     startCamera();
