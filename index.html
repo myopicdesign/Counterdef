@@ -144,6 +144,16 @@
     let fullscreenAttivato = false;
     const counterEl = document.getElementById('counter');
     const noseIcon = document.querySelector('.nose-icon');
+    let audioMotivazionale = null;
+
+    // Lista di audio motivazionali
+    const motivationalAudios = [
+      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3",
+      "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3",
+      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3", // placeholder
+      "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3", // placeholder
+      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3"  // placeholder
+    ];
 
     function playBeep() {
       try {
@@ -161,6 +171,15 @@
       } catch (e) {
         console.warn("Beep non supportato:", e);
       }
+    }
+
+    function playMotivationalAudio() {
+      if (audioMotivazionale && !audioMotivazionale.paused) return; // già in riproduzione
+
+      const randomIndex = Math.floor(Math.random() * motivationalAudios.length);
+      const src = motivationalAudios[randomIndex];
+      audioMotivazionale = new Audio(src);
+      audioMotivazionale.play().catch(e => console.warn("Errore audio:", e));
     }
 
     async function richiediFullscreen() {
@@ -188,7 +207,13 @@
 
       count++;
       counterEl.textContent = count;
+
       playBeep();
+
+      // Ogni 5 flessioni, riproduci audio motivazionale
+      if (count % 5 === 0) {
+        playMotivationalAudio();
+      }
 
       noseIcon.classList.remove("echo");
       requestAnimationFrame(() => {
@@ -213,7 +238,7 @@
     startCamera();
     window.addEventListener('touchstart', handleTouch, { passive: true });
 
-    // Azzera il contatore al click del pulsante di reset
+    // Reset del contatore
     document.getElementById("reset-button").addEventListener("click", () => {
       count = 0;
       counterEl.textContent = count;
