@@ -26,6 +26,7 @@
       background: black;
     }
 
+    /* Barra in alto */
     .top-bar {
       position: absolute;
       top: 0;
@@ -38,7 +39,7 @@
       box-sizing: border-box;
       z-index: 20;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
 
     .fake-btn {
@@ -47,19 +48,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
       user-select: none;
+      font-size: 1.8rem; /* uguale per entrambi */
+      line-height: 1;
     }
 
+    /* Titolo allineato al centro nella barra */
     .title-wrapper {
-      position: absolute;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1rem;
-      color: white;
+      flex-grow: 1;
+      text-align: center;
+      font-size: 1.8rem;
       user-select: none;
       pointer-events: none;
+      font-weight: bold;
+      /* per non farlo spostare da flexbox */
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     #counter {
@@ -117,6 +122,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.8rem; /* Icona ingrandita */
+      user-select: none;
     }
   </style>
 </head>
@@ -125,9 +132,9 @@
 
   <div class="top-bar">
     <div class="fake-btn">×</div>
+    <div class="title-wrapper">FlexNose</div>
     <div class="fake-btn">☰</div>
   </div>
-  <div class="title-wrapper">FlexNose</div>
 
   <!-- SVG esterno corretto -->
   <img src="https://myopicdesign.github.io/Counterdef/naso.svg" alt="naso" class="nose-icon" />
