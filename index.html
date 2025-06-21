@@ -12,6 +12,7 @@
       height: 100%;
       background: black;
       touch-action: manipulation;
+      font-family: sans-serif;
     }
 
     #video {
@@ -25,28 +26,111 @@
       background: black;
     }
 
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      z-index: 20;
+      color: white;
+    }
+
+    .top-bar .fake-btn {
+      font-size: 1.5rem;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     #counter {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 8rem;
+      font-size: 6rem;
       font-family: monospace;
-      color: lime;
-      text-shadow: 0 0 10px #000;
+      color: white;
       z-index: 10;
       user-select: none;
+      text-align: center;
+    }
+
+    .nose-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      z-index: 9;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .echo {
+      animation: echo 0.4s ease-out;
+    }
+
+    @keyframes echo {
+      0% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2.5);
+      }
+    }
+
+    .reset-button {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 15;
     }
   </style>
 </head>
 <body>
   <video id="video" autoplay playsinline muted></video>
+
+  <div class="top-bar">
+    <div class="fake-btn">×</div>
+    <div style="font-size: 1rem;">FlexNose</div>
+    <div class="fake-btn">☰</div>
+  </div>
+
+  <svg class="nose-icon" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="4">
+    <path d="M30 20 C30 60, 70 60, 70 20" stroke-linecap="round"/>
+    <path d="M35 70 Q50 90, 65 70" stroke-linecap="round"/>
+  </svg>
+
   <div id="counter">0</div>
+
+  <div class="reset-button">⟳</div>
 
   <script>
     let count = 0;
     let fullscreenAttivato = false;
     const counterEl = document.getElementById('counter');
+    const noseIcon = document.querySelector('.nose-icon');
 
     function playBeep() {
       try {
@@ -92,6 +176,11 @@
       count++;
       counterEl.textContent = count;
       playBeep();
+
+      // Echo effect
+      noseIcon.classList.remove("echo");
+      void noseIcon.offsetWidth; // trigger reflow
+      noseIcon.classList.add("echo");
     }
 
     async function startCamera() {
