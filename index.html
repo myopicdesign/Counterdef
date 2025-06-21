@@ -34,20 +34,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px;
+      padding: 20px 16px;
       z-index: 20;
       color: white;
+      font-size: 1.5rem;
+      pointer-events: none;
     }
 
     .top-bar .fake-btn {
-      font-size: 1.5rem;
-      background: rgba(0,0,0,0.5);
-      border-radius: 50%;
+      pointer-events: none;
       width: 32px;
       height: 32px;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .top-bar .title {
+      font-size: 1rem;
+      pointer-events: none;
     }
 
     #counter {
@@ -76,7 +81,7 @@
     }
 
     .echo {
-      animation: echo 0.4s ease-out;
+      animation: echo 0.5s ease-out;
     }
 
     @keyframes echo {
@@ -98,7 +103,9 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       color: white;
       font-size: 1.5rem;
       display: flex;
@@ -113,7 +120,7 @@
 
   <div class="top-bar">
     <div class="fake-btn">×</div>
-    <div style="font-size: 1rem;">FlexNose</div>
+    <div class="title">FlexNose</div>
     <div class="fake-btn">☰</div>
   </div>
 
@@ -177,10 +184,11 @@
       counterEl.textContent = count;
       playBeep();
 
-      // Echo effect
+      // Rimuovi ed eventualmente riattiva la classe per retrigger
       noseIcon.classList.remove("echo");
-      void noseIcon.offsetWidth; // trigger reflow
-      noseIcon.classList.add("echo");
+      requestAnimationFrame(() => {
+        noseIcon.classList.add("echo");
+      });
     }
 
     async function startCamera() {
