@@ -15,6 +15,24 @@
       font-family: sans-serif;
     }
 
+    #splash-screen {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #splash-screen img {
+      width: 200px;
+      height: auto;
+    }
+
     #video {
       position: fixed;
       top: 0; left: 0;
@@ -125,6 +143,11 @@
   </style>
 </head>
 <body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <img src="https://myopicdesign.github.io/Counterdef/src/logo_flex.png" alt="Logo">
+  </div>
+
   <video id="video" autoplay playsinline muted></video>
 
   <div class="top-bar">
@@ -146,13 +169,13 @@
     const noseIcon = document.querySelector('.nose-icon');
     let audioMotivazionale = null;
 
-    // Lista di audio motivazionali
+    // Lista audio motivazionali
     const motivationalAudios = [
       "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3",
       "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3",
-      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3", // placeholder
-      "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3", // placeholder
-      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3"  // placeholder
+      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3",
+      "https://myopicdesign.github.io/Counterdef/src/motivazione2.mp3",
+      "https://myopicdesign.github.io/Counterdef/src/motivazione1.mp3"
     ];
 
     function playBeep() {
@@ -174,10 +197,9 @@
     }
 
     function playMotivationalAudio() {
-      if (audioMotivazionale && !audioMotivazionale.paused) return; // già in riproduzione
+      if (audioMotivazionale && !audioMotivazionale.paused) return;
 
-      const randomIndex = Math.floor(Math.random() * motivationalAudios.length);
-      const src = motivationalAudios[randomIndex];
+      const src = motivationalAudios[Math.floor(Math.random() * motivationalAudios.length)];
       audioMotivazionale = new Audio(src);
       audioMotivazionale.play().catch(e => console.warn("Errore audio:", e));
     }
@@ -186,13 +208,9 @@
       const el = document.documentElement;
       try {
         if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-          if (el.requestFullscreen) {
-            await el.requestFullscreen();
-          } else if (el.webkitRequestFullscreen) {
-            await el.webkitRequestFullscreen();
-          } else if (el.msRequestFullscreen) {
-            await el.msRequestFullscreen();
-          }
+          if (el.requestFullscreen) await el.requestFullscreen();
+          else if (el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+          else if (el.msRequestFullscreen) await el.msRequestFullscreen();
         }
       } catch (err) {
         console.warn("Impossibile entrare in fullscreen:", err);
@@ -210,10 +228,7 @@
 
       playBeep();
 
-      // Ogni 5 flessioni, riproduci audio motivazionale
-      if (count % 5 === 0) {
-        playMotivationalAudio();
-      }
+      if (count % 5 === 0) playMotivationalAudio();
 
       noseIcon.classList.remove("echo");
       requestAnimationFrame(() => {
@@ -227,18 +242,24 @@
           video: { facingMode: "user" },
           audio: false
         });
-        const video = document.getElementById("video");
-        video.srcObject = stream;
-        await video.play();
+        document.getElementById("video").srcObject = stream;
+        await document.getElementById("video").play();
       } catch (e) {
         alert("Errore accesso fotocamera: " + e.message);
       }
     }
 
+    // Splash screen logic
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const splash = document.getElementById("splash-screen");
+        if (splash) splash.remove();
+      }, 2000);
+    });
+
     startCamera();
     window.addEventListener('touchstart', handleTouch, { passive: true });
 
-    // Reset del contatore
     document.getElementById("reset-button").addEventListener("click", () => {
       count = 0;
       counterEl.textContent = count;
